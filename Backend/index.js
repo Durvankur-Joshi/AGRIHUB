@@ -1,7 +1,9 @@
 const express = require('express')
 require("dotenv").config();
 const DbConnect=require("./config/db")
+
 const farmerAuthRoute=require("./Routes/farmerAuthRoutes")
+const farmerDashboardRoute=require('./Routes/farmerDashboardRoutes')
 
 const PORT = process.env.PORT 
 DbConnect()
@@ -14,6 +16,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use("/api/farmer/auth",farmerAuthRoute)
+app.use("/api/farmer",farmerDashboardRoute)
 
 app.listen(PORT,()=>{
     console.log("Server is running on port: ",PORT)
