@@ -9,6 +9,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -40,15 +41,22 @@ const Navbar = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-96 " align="start">
                         <DropdownMenuLabel>
-                            <div
-                            className="flex justify-center bg-green-700 text-white rounded-2xl "
-                            >
-                            <Button
-                            variant=" " > Login </Button>
+                            <div className="flex justify-center rounded-2xl">
+                                <Link to="/login" className="w-full">
+                                    <Button className="w-full bg-green-700 text-white rounded-2xl hover:bg-green-800">
+                                        Login
+                                    </Button>
+                                </Link>
                             </div>
-                            
+                            <DropdownMenuSeparator
+                            className="mt-2 bg-black" />
+                            <div
+                            className="flex justify-center text-gray-700">
+                                <Link to="/farmerlogin"> Register as a farmer
+                                </Link>
+                            </div>
                         </DropdownMenuLabel>
-                        
+
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <Button variant=" " size="icon" aria-label="Submit">
