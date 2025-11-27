@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Link } from "react-router-dom";
+import Logo from "../assets/Logo.png";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -17,7 +18,13 @@ const Navbar = () => {
     return (
         <div className="w-full flex items-center justify-between p-5 bg-transparent">
 
-            <div className="text-2xl font-bold tracking-wide">AGRIHUB🌾</div>
+  <div className="flex items-center">
+    <img
+      src={Logo}
+      alt="logo"
+      className="h-auto w-40  object-contain "
+    />
+  </div>
 
             <div className="hidden md:flex items-center gap-2 w-1/3">
                 <Input type="search" placeholder="Search Product" />

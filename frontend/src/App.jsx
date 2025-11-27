@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import FarmerLogin from './Farmer/FarmerLogin'
+import FarmerLogin from './Farmer/FarmerLogin.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
