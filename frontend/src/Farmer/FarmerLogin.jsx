@@ -12,17 +12,51 @@ import { Link } from "react-router-dom"
 import farmerloginimage from "../assets/farmerloginimage.jpg"
 import Logo from "../assets/Logo.png"
 import { toast, Toaster } from 'react-hot-toast'
+import { useNavigate } from "react-router-dom"
 
 const FarmerLogin = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const validateLogin = () => {
+    let newErrors = {};
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    console.log("Email:", email)
-    console.log("Password:", password)
-    toast.success('Login successful!')
+    // Email validation
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Enter a valid email";
+    }
+
+    // Password validation
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+ const onSubmit = (e) => {
+  e.preventDefault();
+
+  if (!validateLogin()) {
+    toast.error("Please fix the errors");
+    return;
   }
+
+  console.log("Email:", email);
+  console.log("Password:", password);
+
+  toast.success("Login successful!");
+  navigate("/farmerdashboard");
+};
+
 
   return (
     <>
@@ -61,6 +95,7 @@ const FarmerLogin = () => {
                     required
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
                 </Field>
 
                 <Field>
@@ -75,6 +110,7 @@ const FarmerLogin = () => {
                   </div>
                   <Input id="password" type="password" required
                     onChange={(e) => setPassword(e.target.value)} />
+                  {errors.password && <p className="text-red-600 text-sm">{errors.password}</p>}
                 </Field>
 
                 <Field>
