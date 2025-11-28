@@ -4,6 +4,7 @@ const DbConnect=require("./config/db")
 
 const farmerAuthRoute=require("./Routes/farmerAuthRoutes")
 const farmerDashboardRoute=require('./Routes/farmerDashboardRoutes')
+const productRoute=require('./Routes/productRoute')
 
 const PORT = process.env.PORT 
 DbConnect()
@@ -17,6 +18,7 @@ app.get('/',(req,res)=>{
 
 app.use("/api/farmer/auth",farmerAuthRoute)
 app.use("/api/farmer",farmerDashboardRoute)
+app.use("/api/farmer/products",productRoute)
 
 app.listen(PORT,()=>{
     console.log("Server is running on port: ",PORT)
