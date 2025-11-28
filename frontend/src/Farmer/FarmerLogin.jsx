@@ -13,7 +13,7 @@ import farmerloginimage from "../assets/farmerloginimage.jpg"
 import Logo from "../assets/Logo.png"
 import { toast, Toaster } from 'react-hot-toast'
 
-function FarmerLogin() {
+const FarmerLogin = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
