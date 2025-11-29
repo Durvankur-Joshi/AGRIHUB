@@ -22,11 +22,11 @@ const ActionButton = () => {
           variant="primary"
           onClick={()=> navigate('/farmerdashboard/orders')}
           >Orders</Button>
+          
         <Button
           className="bg-white text-base font-medium hover:bg-green-200"
           variant="primary"
           onClick={() => navigate('/farmerdashboard/myproduct')}>My Products</Button>
-
       </div>
     </>
   )
