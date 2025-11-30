@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -23,12 +23,22 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import UpdateDialog from "./components/UpdateDialog";
+import AddProductDialog from "./components/AddProductDialog";
+import { useNavigate } from "react-router-dom";
+import { LayoutDashboard, BaggageClaim } from "lucide-react";
 
 const Orders = () => {
-  const [position, setPosition] = React.useState("all");
+  const [position, setPosition] = useState("all");
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
+
+  const handleStatusUpdate = (val) => {
+    setStatus(val);
+    console.log("Updated Status:", val);
+  };
 
   const orders = [
-    { id: "#1245", product: "Tomatoes", buyer: "Rahul", quantity: "5kg", status: "Pending",price:"200"},
+    { id: "#1245", product: "Tomatoes", buyer: "Rahul", quantity: "5kg", status: "Pending", price: "200" },
     { id: "#1246", product: "Potatoes", buyer: "Sneha", quantity: "10kg", status: "Delivered" },
     { id: "#1247", product: "Onions", buyer: "Amit", quantity: "7kg", status: "Delivered" },
     { id: "#1248", product: "Carrots", buyer: "Priya", quantity: "4kg", status: "Pending" },
@@ -38,25 +48,17 @@ const Orders = () => {
 
   return (
     <div className="w-full h-[90vh] p-6 bg-white rounded-lg border">
-
       <ResizablePanelGroup direction="vertical" className="w-full h-full rounded-lg border">
 
-        {/* ----------- HEADER PANEL ----------- */}
         <ResizablePanel defaultSize={20} minSize={12}>
           <div className="flex items-center justify-between h-full p-4 bg-gray-100 border-b">
-
-            {/* Logo */}
             <img src={Logo} className="w-32 object-contain" alt="logo" />
-
-            {/* Page Title */}
             <h1 className="text-2xl font-semibold">Orders Received</h1>
 
-            {/* Filter */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">Filter</Button>
               </DropdownMenuTrigger>
-
               <DropdownMenuContent className="w-56">
                 <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
                   <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
@@ -71,14 +73,20 @@ const Orders = () => {
 
         <ResizableHandle />
 
-        {/* ----------- CONTENT PANEL ----------- */}
+        <div className=" w-full flex justify-center p-5 items-center gap-10 bg-slate-100 ">
+          <AddProductDialog>
+            <Button className="px-6">+ Add Product</Button>
+          </AddProductDialog>
+          <Button className="px-4"
+            onClick={() => navigate('/farmerdashboard')} > <LayoutDashboard /> Dashboard</Button>
+          <Button className="px-4"
+            onClick={() => navigate('/farmerdashboard/myproduct')} > <LayoutDashboard />My product</Button>
+        </div>
+
         <ResizablePanel defaultSize={80} minSize={40}>
           <div className="h-full p-6 bg-gray-50 flex flex-col">
-
-            {/* Title */}
             <h2 className="text-xl font-bold mb-4">Order Table</h2>
 
-            {/* Table Section */}
             <ScrollArea className="flex-1 rounded-md border bg-white">
               <Table>
                 <TableHeader className="bg-gray-100">
@@ -103,18 +111,17 @@ const Orders = () => {
                       <TableCell>{order.price}</TableCell>
                       <TableCell>
                         <span
-                          className={`${
-                            order.status === "Pending"
-                              ? "text-yellow-600"
-                              : "text-green-600"
-                          } font-semibold`}
+                          className={`${order.status === "Pending"
+                            ? "text-yellow-600"
+                            : "text-green-600"
+                            } font-semibold`}
                         >
                           {order.status}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <UpdateDialog>
-                        <Button size="sm" variant="outline">Update</Button>
+                        <UpdateDialog onSave={handleStatusUpdate}>
+                          <Button size="sm" variant="outline">Update</Button>
                         </UpdateDialog>
                       </TableCell>
                     </TableRow>
@@ -122,12 +129,10 @@ const Orders = () => {
                 </TableBody>
               </Table>
             </ScrollArea>
-
           </div>
         </ResizablePanel>
 
       </ResizablePanelGroup>
-
     </div>
   );
 };
