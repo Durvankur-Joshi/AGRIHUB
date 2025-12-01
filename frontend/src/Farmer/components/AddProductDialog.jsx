@@ -44,8 +44,8 @@ const AddProductDialog = ({ children }) => {
         formData.append("location", location);
 
         try {
-            const res = await fetch("http://localhost:8080/api/farmer/products/my-products", {
-                method: "GET",
+            const res = await fetch("api/farmer/products/add", {
+                method: "POST",
                 body: formData,
             });
 
