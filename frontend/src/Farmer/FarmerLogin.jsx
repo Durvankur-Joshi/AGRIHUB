@@ -42,19 +42,25 @@ const FarmerLogin = () => {
   };
 
 
- const onSubmit = (e) => {
+ const onSubmit = async(e) => {
   e.preventDefault();
 
   if (!validateLogin()) {
     toast.error("Please fix the errors");
     return;
   }
-
-  console.log("Email:", email);
-  console.log("Password:", password);
-
-  toast.success("Login successful!");
-  navigate("/farmerdashboard");
+  try {
+   const res = await api.post("/farmer/auth/login",{
+     email,
+     password
+   })
+    toast.success("Login sucessfully")
+    navigate("/farmerdashboard")
+    
+  } catch (error) {
+    console.log('Error' , error)
+    toast.error("Login failed")
+  }
 };
 
 
