@@ -8,6 +8,8 @@ import FarmerDashboard from './Farmer/FarmerDashboard.jsx'
 import Orders from './Farmer/Orders'
 import MyProduct from './Farmer/MyProduct'
 import Register from './Pages/Register'
+import Marketplace from './Buyer/Pages/Marketplace.jsx'
+import Cart from './Buyer/Pages/Cart'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,6 +29,8 @@ function App() {
       element={<Orders />} />
       <Route path='/farmerdashboard/myproduct'
       element={<MyProduct />} />
+      <Route path='/buyer/marketplace' element={<Marketplace />} />
+      <Route path="/buyer/cart" element= {<Cart />} />
       </Routes>
     </BrowserRouter>
     </>
