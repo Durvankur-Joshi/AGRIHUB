@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import { toast, Toaster } from "react-hot-toast";
+import api from "@/api/axiosConfig";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,9 +19,20 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     e.preventDefault();
-    toast.success("Login clicked");
+    try {
+      const res = await api.post("",{
+      email,
+      password
+    })
+    console.log("Responce",res)
+    toast.success("Login Successfully")
+      
+    } catch (error) {
+      console.log("Error",error)
+      toast.error("Enter the vaild")
+    }
   };
 
   return (

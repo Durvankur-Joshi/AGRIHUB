@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -14,13 +14,29 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import toast from "react-hot-toast"
 
-export function SignupForm({
-  className,
-  ...props
-}) {
+const SignupForm = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+
+  const handelSubmit = async(e) =>{
+     e.preventDefault();
+    try {
+       const res = await api.post("",{
+      name,
+      email,
+      password
+    })
+     toast.success("Account created successfully")
+    } catch (error) {
+      toast.error("Enter the vaild data")
+    }
+  }
+   
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className="flex flex-col gap-6" >
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Create your account</CardTitle>
@@ -33,24 +49,22 @@ export function SignupForm({
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                <Input id="name" type="text" placeholder="John Doe" required />
+                <Input id="name" type="text" placeholder="John Doe" required 
+                 onChange={(e) => setName(e.target.value)} />
               </Field>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input id="email" type="email" placeholder="m@example.com" required 
+                 onChange={(e) => setEmail(e.target.value)}/>
               </Field>
               <Field>
-                <Field className="grid grid-cols-2 gap-4">
+                <Field className="grid  gap-4">
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input id="password" type="password" required />
+                    <Input id="password" type="password" required 
+                     onChange={(e) => setPassword(e.target.value)}/>
                   </Field>
-                  <Field>
-                    <FieldLabel htmlFor="confirm-password">
-                      Confirm Password
-                    </FieldLabel>
-                    <Input id="confirm-password" type="password" required />
-                  </Field>
+
                 </Field>
                 <FieldDescription>
                   Must be at least 8 characters long.
@@ -58,7 +72,8 @@ export function SignupForm({
               </Field>
               <Field>
                 <Button
-                className="bg-green-700 hover:bg-green-800" type="submit">Create Account</Button>
+                className="bg-green-700 hover:bg-green-800" type="submit"
+                onClick={handelSubmit}>Create Account</Button>
                 <FieldDescription className="text-center ">
                   Already have an account? <a 
                   className="text-green-800" href="/login">Sign in</a>
@@ -75,3 +90,5 @@ export function SignupForm({
     </div>
   );
 }
+
+export default SignupForm;
