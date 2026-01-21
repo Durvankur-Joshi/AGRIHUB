@@ -12,6 +12,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import { toast, Toaster } from "react-hot-toast";
 import api from "@/api/axiosConfig";
+import { loginUser } from "@/utils/auth";
+import { Separator } from "@/components/ui/separator";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,19 +21,29 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("",{
-      email,
-      password
-    })
-    console.log("Responce",res)
-    toast.success("Login Successfully")
-      
+      // const res = await api.post("", {
+      //   email,
+      //   password
+      // })
+
+      setTimeout(() => {
+        const user = {
+          name: "Buyer User",
+          email,
+          role: "buyer",
+        };
+
+        loginUser(user);
+
+        navigate("/");
+      }, 1000);
+      toast.success("Login Successfully");
     } catch (error) {
-      console.log("Error",error)
-      toast.error("Enter the vaild")
+      console.log("Error", error)
+      toast.error("Enter the valid")
     }
   };
 
@@ -111,6 +123,18 @@ const Login = () => {
               </FieldGroup>
 
             </form>
+            <Separator className="my-4 bg-gray-800" />
+            <div
+              className="flex justify-center">
+              <p>
+                <Link
+                  to="/farmerlogin"
+                  className="text-green-700 font-medium underline-offset-2 hover:underline"
+                >
+                  Login{" "}
+                </Link>
+                as a Farmer</p>
+            </div>
           </CardContent>
         </Card>
       </div>

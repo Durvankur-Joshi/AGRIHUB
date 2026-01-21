@@ -2,8 +2,10 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import bgimg from '../assets/homebg.jpg'
 import { Button } from '@/components/ui/button'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+   const navigate = useNavigate();  
   return (
     <>
       <div
@@ -21,6 +23,7 @@ const Home = () => {
         
         <div className="flex justify-center mt-10">
           <Button
+            onClick = {() => navigate('buyer/marketplace')}
             className="bg-green-700 text-white px-8 py-4 text-lg 
                        hover:bg-green-900 shadow-lg rounded-xl">
             View Products

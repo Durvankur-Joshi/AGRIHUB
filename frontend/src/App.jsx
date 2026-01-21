@@ -10,6 +10,7 @@ import MyProduct from './Farmer/MyProduct'
 import Register from './Pages/Register'
 import Marketplace from './Buyer/Pages/Marketplace.jsx'
 import Cart from './Buyer/Pages/Cart'
+import BuyerProfile from './Buyer/Pages/BuyerProfile.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,6 +32,7 @@ function App() {
       element={<MyProduct />} />
       <Route path='/buyer/marketplace' element={<Marketplace />} />
       <Route path="/buyer/cart" element= {<Cart />} />
+      <Route path="/buyer/profile" element={<BuyerProfile  />} />
       </Routes>
     </BrowserRouter>
     </>
